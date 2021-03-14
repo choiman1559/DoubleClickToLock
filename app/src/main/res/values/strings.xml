@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DoubleClickToLock</string>
+    <string name="signature_title">Your signature</string>
+    <string name="device_admin_des">Device admin permission to lock</string>
+</resources>

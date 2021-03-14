@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="methods">
+        <item>Root method</item>
+        <item>Device Admin method</item>
+        <item>Accessibility method</item>
+        <item>Timeout method (Default)</item>
+        </string-array>
+
+    <string-array name="methods_value">
+        <item>R</item>
+        <item>D</item>
+        <item>A</item>
+        <item>T</item>
+    </string-array>
+</resources>

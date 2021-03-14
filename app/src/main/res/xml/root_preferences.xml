@@ -1,0 +1,23 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <Preference
+        android:key="Permission"
+        android:summary="Click here to permit missing permissions"
+        android:title="Click to permit"
+        android:icon="@drawable/ic_baseline_info_24"/>
+    <Preference
+        android:key="LowApi"
+        android:title="Android version is low"
+        android:summary="You need api 23 or higher to use this method."
+        android:icon="@drawable/ic_baseline_warning_24"/>
+    <ListPreference
+        android:key="SelectMethod"
+        android:defaultValue="1"
+        android:entries="@array/methods"
+        android:entryValues="@array/methods_value"
+        android:summary="Now : Timeout method (Default)"
+        android:title="Select Lock method" />
+    <Preference
+        android:key="IntervalTime"
+        android:title="Double-click interval"
+        android:summary="Now : 500 ms (Default)"/>
+</PreferenceScreen>
