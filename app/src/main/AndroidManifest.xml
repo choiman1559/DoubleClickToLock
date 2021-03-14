@@ -3,11 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.lock.and.lock">
 
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.DEVICE_POWER"
+    <uses-permission
+        android:name="android.permission.DEVICE_POWER"
         tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS"
+    <uses-permission
+        android:name="android.permission.WRITE_SECURE_SETTINGS"
         tools:ignore="ProtectedPermissions" />
 
     <application
@@ -27,14 +30,13 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/double_touch_widget_info" />
         </receiver>
-
-        <receiver android:name=".OnTouchReceiver"
+        <receiver
+            android:name=".OnTouchReceiver"
             tools:ignore="ExportedReceiver">
             <intent-filter>
                 <action android:name="com.lock.and.lock.OnTouchReceiver" />
             </intent-filter>
         </receiver>
-
         <receiver
             android:name=".handler.DeviceAdminReceiver"
             android:description="@string/device_admin_des"
@@ -43,23 +45,27 @@
             <meta-data
                 android:name="android.app.device_admin"
                 android:resource="@xml/device_admin" />
+
             <intent-filter>
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
             </intent-filter>
         </receiver>
 
-        <service android:name=".handler.AccessibilityService"
-            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
-            android:label="AccessibilityService to lock screen">
+        <service
+            android:name=".handler.AccessibilityService"
+            android:label="AccessibilityService to lock screen"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
             <intent-filter>
                 <action android:name="android.accessibilityservice.AccessibilityService" />
             </intent-filter>
         </service>
 
-        <activity android:name=".handler.SleepTimeoutActivity"/>
+        <activity android:name=".handler.SleepTimeoutActivity" />
+        <activity android:name=".AppInfoActivity" />
         <activity android:name=".SettingsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

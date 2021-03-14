@@ -172,7 +172,7 @@ public class SettingsActivity extends AppCompatActivity {
             IntervalTime = findPreference("IntervalTime");
 
             checkPermissions(prefs.getString("SelectMethod","T"));
-            IntervalTime.setSummary("Now : " + prefs.getInt("IntervalTime",500) + " ms (Default)");
+            IntervalTime.setSummary("Now : " + prefs.getInt("IntervalTime",200) + " ms (Default)");
             SelectMethod.setOnPreferenceChangeListener((preference, newValue) -> {
                 checkPermissions(newValue + "");
                 return true;
@@ -182,6 +182,10 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public boolean onPreferenceTreeClick(Preference preference) {
             switch (preference.getKey()) {
+                case "AppInfo":
+                    mContext.startActivity(new Intent(mContext,AppInfoActivity.class));
+                    break;
+
                 case "Permission":
                     performPermissions(prefs.getString("SelectMethod","T"));
                     break;
@@ -196,7 +200,7 @@ public class SettingsActivity extends AppCompatActivity {
                     editText.setInputType(InputType.TYPE_CLASS_NUMBER);
                     editText.setHint("Input Limit Value");
                     editText.setGravity(Gravity.START);
-                    editText.setText(String.valueOf(prefs.getInt("IntervalTime", 500)));
+                    editText.setText(String.valueOf(prefs.getInt("IntervalTime", 200)));
 
                     LinearLayout parentLayout = new LinearLayout(mContext);
                     LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -217,13 +221,13 @@ public class SettingsActivity extends AppCompatActivity {
                                 Toast.makeText(mContext, "Value must be lower than 2147483647", Toast.LENGTH_SHORT).show();
                             } else {
                                 prefs.edit().putInt("IntervalTime", IntValue).apply();
-                                IntervalTime.setSummary("Now : " + IntValue + (IntValue == 500 ? " ms (Default)" : " ms"));
+                                IntervalTime.setSummary("Now : " + IntValue + (IntValue == 200 ? " ms (Default)" : " ms"));
                             }
                         }
                     });
                     dialog.setNeutralButton("Reset Default", (d, w) -> {
-                        prefs.edit().putInt("IntervalTime", 500).apply();
-                        IntervalTime.setSummary("Now : " + 500 + " ms (Default)");
+                        prefs.edit().putInt("IntervalTime", 200).apply();
+                        IntervalTime.setSummary("Now : " + 200 + " ms (Default)");
                     });
                     dialog.setNegativeButton("Cancel", (d, w) -> { });
                     dialog.show();

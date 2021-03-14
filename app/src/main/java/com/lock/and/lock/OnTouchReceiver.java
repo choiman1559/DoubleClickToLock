@@ -20,12 +20,14 @@ public class OnTouchReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         SharedPreferences prefs = context.getSharedPreferences(context.getPackageName() + "_preferences",Context.MODE_PRIVATE);
         Long time = System.currentTimeMillis();
-        int IntervalInMillis = prefs.getInt("IntervalTime", 500);
+        int IntervalInMillis = prefs.getInt("IntervalTime", 200);
         if (syncTime != 0L && time - syncTime < IntervalInMillis) {
             switch (prefs.getString("SelectMethod", "T")) {
                 case "A":
                     if(Build.VERSION.SDK_INT > 27) {
-                        accessibilityService.performGlobalAction(AccessibilityService.GLOBAL_ACTION_LOCK_SCREEN);
+                        if(accessibilityService != null) {
+                            accessibilityService.performGlobalAction(AccessibilityService.GLOBAL_ACTION_LOCK_SCREEN);
+                        } else Toast.makeText(context,"AccessibilityService isn't running.\nPlease retry after granting accessibility permission.",Toast.LENGTH_SHORT).show();
                     } else Toast.makeText(context, "android version's too low", Toast.LENGTH_SHORT).show();
                     break;
 

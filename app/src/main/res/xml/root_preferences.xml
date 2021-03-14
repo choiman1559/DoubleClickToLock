@@ -19,5 +19,9 @@
     <Preference
         android:key="IntervalTime"
         android:title="Double-click interval"
-        android:summary="Now : 500 ms (Default)"/>
+        android:summary="Now : 200 ms (Default)"/>
+    <Preference
+        android:key="AppInfo"
+        android:title="App info"
+        android:summary="license, git repo, and other" />
 </PreferenceScreen>
