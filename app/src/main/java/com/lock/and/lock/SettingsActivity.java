@@ -90,6 +90,7 @@ public class SettingsActivity extends AppCompatActivity {
                     Summary = "Accessibility method";
                     if(Build.VERSION.SDK_INT < 28) {
                         LowApi.setVisible(true);
+                        LowApi.setSummary("this method needs api 28 at least");
                         Permission.setVisible(false);
                     } else {
                         LowApi.setVisible(false);
@@ -118,6 +119,7 @@ public class SettingsActivity extends AppCompatActivity {
                     Summary = "Timeout method (Default)";
                     if(Build.VERSION.SDK_INT < 23) {
                         LowApi.setVisible(true);
+                        LowApi.setSummary("this method needs api 23 at least");
                         Permission.setVisible(false);
                     } else {
                         LowApi.setVisible(false);
@@ -133,7 +135,7 @@ public class SettingsActivity extends AppCompatActivity {
                 case "A":
                     if(Build.VERSION.SDK_INT > 27) {
                         mContext.startActivityForResult(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS), PERMISSIONS_REQUEST_CODE);
-                    } else Toast.makeText(mContext, "android version's too low", Toast.LENGTH_SHORT).show();
+                    } else Toast.makeText(mContext, "android version's too low\nthis method needs api 28 at least", Toast.LENGTH_SHORT).show();
                     break;
 
                 case "D":
@@ -156,7 +158,7 @@ public class SettingsActivity extends AppCompatActivity {
                         Intent intent2 = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
                         intent2.setData(Uri.parse("package:" + mContext.getPackageName()));
                         mContext.startActivityForResult(intent2, PERMISSIONS_REQUEST_CODE);
-                    } else Toast.makeText(mContext, "android version's too low", Toast.LENGTH_SHORT).show();
+                    } else Toast.makeText(mContext, "android version's too low\nthis method needs api 23 at least", Toast.LENGTH_SHORT).show();
                     break;
             }
         }

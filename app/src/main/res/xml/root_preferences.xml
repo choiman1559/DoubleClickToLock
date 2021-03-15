@@ -6,8 +6,7 @@
         android:icon="@drawable/ic_baseline_info_24"/>
     <Preference
         android:key="LowApi"
-        android:title="Android version is low"
-        android:summary="You need api 23 or higher to use this method."
+        android:title="Android version is too low"
         android:icon="@drawable/ic_baseline_warning_24"/>
     <ListPreference
         android:key="SelectMethod"
