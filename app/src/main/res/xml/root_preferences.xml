@@ -20,6 +20,10 @@
         android:title="Double-click interval"
         android:summary="Now : 200 ms (Default)"/>
     <Preference
+        android:key="AddWidget"
+        android:title="Click here to add widget"
+        android:summary="add widget to your launcher"/>
+    <Preference
         android:key="AppInfo"
         android:title="App info"
         android:summary="license, git repo, and other" />

@@ -47,7 +47,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == SettingsFragment.PERMISSIONS_REQUEST_CODE) {
+        if (requestCode == SettingsFragment.PERMISSIONS_REQUEST_CODE) {
             SettingsFragment.checkPermissions("");
         }
     }
@@ -67,7 +67,7 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public void onAttach(@NonNull Context context) {
             super.onAttach(context);
-            if(context instanceof Activity) mContext = (Activity) context;
+            if (context instanceof Activity) mContext = (Activity) context;
             else throw new RuntimeException("Context isn't instanceof Activity!!!");
         }
 
@@ -76,19 +76,20 @@ public class SettingsActivity extends AppCompatActivity {
             BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
             String line;
             while ((line = reader.readLine()) != null) {
-                if(line.contains("uid=0") && line.contains("gid=0") && line.contains("root")) return true;
+                if (line.contains("uid=0") && line.contains("gid=0") && line.contains("root"))
+                    return true;
             }
             process.waitFor();
             return false;
         }
 
         public static void checkPermissions(String value) {
-            if(value.equals("")) value = prefs.getString("SelectMethod","T");
+            if (value.equals("")) value = prefs.getString("SelectMethod", "T");
             String Summary;
             switch (value) {
                 case "A":
                     Summary = "Accessibility method";
-                    if(Build.VERSION.SDK_INT < 28) {
+                    if (Build.VERSION.SDK_INT < 28) {
                         LowApi.setVisible(true);
                         LowApi.setSummary("this method needs api 28 at least");
                         Permission.setVisible(false);
@@ -101,7 +102,7 @@ public class SettingsActivity extends AppCompatActivity {
                 case "D":
                     Summary = "Device Admin method";
                     LowApi.setVisible(false);
-                    Permission.setVisible(!prefs.getBoolean("isDeviceAdminOn",false));
+                    Permission.setVisible(!prefs.getBoolean("isDeviceAdminOn", false));
                     break;
 
                 case "R":
@@ -117,7 +118,7 @@ public class SettingsActivity extends AppCompatActivity {
 
                 default:
                     Summary = "Timeout method (Default)";
-                    if(Build.VERSION.SDK_INT < 23) {
+                    if (Build.VERSION.SDK_INT < 23) {
                         LowApi.setVisible(true);
                         LowApi.setSummary("this method needs api 23 at least");
                         Permission.setVisible(false);
@@ -133,9 +134,10 @@ public class SettingsActivity extends AppCompatActivity {
         private void performPermissions(String value) {
             switch (value) {
                 case "A":
-                    if(Build.VERSION.SDK_INT > 27) {
+                    if (Build.VERSION.SDK_INT > 27) {
                         mContext.startActivityForResult(new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS), PERMISSIONS_REQUEST_CODE);
-                    } else Toast.makeText(mContext, "android version's too low\nthis method needs api 28 at least", Toast.LENGTH_SHORT).show();
+                    } else
+                        Toast.makeText(mContext, "android version's too low\nthis method needs api 28 at least", Toast.LENGTH_SHORT).show();
                     break;
 
                 case "D":
@@ -154,11 +156,12 @@ public class SettingsActivity extends AppCompatActivity {
                     break;
 
                 default:
-                    if(Build.VERSION.SDK_INT > 22) {
+                    if (Build.VERSION.SDK_INT > 22) {
                         Intent intent2 = new Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS);
                         intent2.setData(Uri.parse("package:" + mContext.getPackageName()));
                         mContext.startActivityForResult(intent2, PERMISSIONS_REQUEST_CODE);
-                    } else Toast.makeText(mContext, "android version's too low\nthis method needs api 23 at least", Toast.LENGTH_SHORT).show();
+                    } else
+                        Toast.makeText(mContext, "android version's too low\nthis method needs api 23 at least", Toast.LENGTH_SHORT).show();
                     break;
             }
         }
@@ -166,15 +169,15 @@ public class SettingsActivity extends AppCompatActivity {
         @Override
         public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
-            prefs = mContext.getSharedPreferences(mContext.getPackageName() + "_preferences",MODE_PRIVATE);
+            prefs = mContext.getSharedPreferences(mContext.getPackageName() + "_preferences", MODE_PRIVATE);
 
             LowApi = findPreference("LowApi");
             Permission = findPreference("Permission");
             SelectMethod = findPreference("SelectMethod");
             IntervalTime = findPreference("IntervalTime");
 
-            checkPermissions(prefs.getString("SelectMethod","T"));
-            IntervalTime.setSummary("Now : " + prefs.getInt("IntervalTime",200) + " ms (Default)");
+            checkPermissions(prefs.getString("SelectMethod", "T"));
+            IntervalTime.setSummary("Now : " + prefs.getInt("IntervalTime", 200) + " ms (Default)");
             SelectMethod.setOnPreferenceChangeListener((preference, newValue) -> {
                 checkPermissions(newValue + "");
                 return true;
@@ -185,11 +188,15 @@ public class SettingsActivity extends AppCompatActivity {
         public boolean onPreferenceTreeClick(Preference preference) {
             switch (preference.getKey()) {
                 case "AppInfo":
-                    mContext.startActivity(new Intent(mContext,AppInfoActivity.class));
+                    mContext.startActivity(new Intent(mContext, AppInfoActivity.class));
                     break;
 
                 case "Permission":
-                    performPermissions(prefs.getString("SelectMethod","T"));
+                    performPermissions(prefs.getString("SelectMethod", "T"));
+                    break;
+
+                case "AddWidget":
+                    DoubleTouchWidget.requestPinAppWidget(mContext);
                     break;
 
                 case "IntervalTime":
@@ -231,7 +238,8 @@ public class SettingsActivity extends AppCompatActivity {
                         prefs.edit().putInt("IntervalTime", 200).apply();
                         IntervalTime.setSummary("Now : " + 200 + " ms (Default)");
                     });
-                    dialog.setNegativeButton("Cancel", (d, w) -> { });
+                    dialog.setNegativeButton("Cancel", (d, w) -> {
+                    });
                     dialog.show();
                     break;
             }
